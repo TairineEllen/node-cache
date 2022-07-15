@@ -10,14 +10,14 @@ export class PokemonController {
 
   if (result) {
     return res.status(200).send({
-      message: 'Cache',
+      message: 'Hello, I\'m in cache',
       pokemon: name
     })
   } else {
     const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
     await clientTedis.setex(name, 20, JSON.stringify(pokemon.data));
     return res.send({
-      message: 'Server',
+      message: 'Hello, I\'m in server',
       pokemon: name
     });
   }    
